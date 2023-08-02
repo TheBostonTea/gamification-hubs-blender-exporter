@@ -5,7 +5,7 @@ from ..game4d_consts import ACTION_TYPES, VARIABLE_TYPES
 
 class OnClickComponent(HubsComponent):
     _definition = {
-        'name': 'game4d-onclick',
+        'name': 'game4d-on-click',
         'display_name': "Game4d On Click Action",
         'category': Category.GAME,
         'node_type': NodeType.NODE,
