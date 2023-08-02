@@ -5,8 +5,8 @@ from ..types import Category, NodeType, PanelType
 class ScriptingComponent(HubsComponent):
     _definition = {
         'name': 'script',
-        'display_name': "Script",
-        'category': Category.OBJECT,
+        'display_name': "Script (Deprecated)",
+        'category': Category.GAME,
         'node_type': NodeType.NODE,
         'panel_type': [PanelType.OBJECT, PanelType.BONE],
         'icon': 'TEXT'

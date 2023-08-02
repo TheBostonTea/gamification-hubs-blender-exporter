@@ -5,8 +5,8 @@ from ..types import Category, NodeType, PanelType
 class QuestionComponent(HubsComponent):
     _definition = {
         'name': 'question',
-        'display_name': "Question",
-        'category': Category.OBJECT,
+        'display_name': "Question (Deprecated)",
+        'category': Category.GAME,
         'node_type': NodeType.NODE,
         'panel_type': [PanelType.OBJECT, PanelType.BONE],
         'icon': 'QUESTION'

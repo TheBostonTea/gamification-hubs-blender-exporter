@@ -23,6 +23,7 @@ class Category(Enum):
     MISC = 'Misc'
     LIGHTS = 'Lights'
     MEDIA = 'Media'
+    GAME = '4d Game'
 
 
 class MigrationType(Enum):
