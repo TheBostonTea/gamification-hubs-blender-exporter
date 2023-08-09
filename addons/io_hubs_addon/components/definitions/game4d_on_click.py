@@ -2,11 +2,13 @@ from bpy.props import BoolProperty, EnumProperty, StringProperty
 from ..hubs_component import HubsComponent
 from ..types import Category, NodeType, PanelType
 from ..game4d_consts import ACTION_TYPES, VARIABLE_TYPES
+from ..game4d_utils import game4d_gen_action_dict
+import json
 
-class OnClickComponent(HubsComponent):
+class Game4dOnClick(HubsComponent):
     _definition = {
         'name': 'game4d-on-click',
-        'display_name': "Game4d On Click Action",
+        'display_name': "Game4d On Click Interaction",
         'category': Category.GAME,
         'node_type': NodeType.NODE,
         'panel_type': [PanelType.OBJECT, PanelType.BONE],
@@ -20,70 +22,42 @@ class OnClickComponent(HubsComponent):
         default=True
     )
 
-    # TODO: Multiple actions!
-    actionType: EnumProperty(
+    # TODO: Multiple nodes, different vars per action, etc...!
+    action: EnumProperty(
         name="Action Type",
         description="What Action will be triggered when this object is clicked?",
         items=ACTION_TYPES,
         default="console"
     )
 
-    # 
-    # This is ugly: We'd want to pool different variables, within the context of this property, and let these populate the list!
-    # UPDATE: Variables inside interactions are deprecated. All variables are stored in the object!
-    # useInternal: BoolProperty(
-    #     name="Use Internal Variable",
-    #     description="Use the Game4d Object internal variable",
-    #     default = True
-    # )
+    actionString: StringProperty(
+        name= "Action String",
+        description="What arguments will be given to the action?",
+        default=""
+    )
 
-    # variableName: StringProperty(
-    #     name="Var Name",
-    #     description="How the internally held variable will be named to be accessible by the game system",
-    #     default=""
-    # )
 
-    # variableType: EnumProperty(
-    #     name="Var Type",
-    #     description="How the internally held variable will be interpreted by the game system",
-    #     items=VARIABLE_TYPES,
-    #     default="string"
-    # )
+    def gather(self, export_settings, object):
 
-    # variableContent: StringProperty(
-    #     name="Var Content",
-    #     description="What the internally held variable will be for this object",
-    #     default=""
-    # )
+        # TODO: Gather multiple actions
+        actions = [game4d_gen_action_dict(self.action, self.actionString, [])]
+        
+        actjsonstr = ""
 
-    # def gather(self, export_settings, object):
-    #     if self.useInternal:
-    #         assert hasComponent(object, 'game4d-object')
-    #         self.variableName = object.hubs_component_list.items[object.hubs_component_list.items.index('game4d-object')].variableName
-    #         self.variableType = object.hubs_component_list.items[object.hubs_component_list.items.index('game4d-object')].variableType
-    #         self.variableContent = object.hubs_component_list.items[object.hubs_component_list.items.index('game4d-object')].variableContent
-
-    #     return {
-    #         'isActive': self.isActive,
-    #         'actionType': self.actionType,
-    #         'useInternal': self.useInternal,
-    #         'variableName': self.variableName,
-    #         'variableType': self.variableType,
-    #         'variableContent': self.variableContent
-    #     }
+        if self.action != "":
+            actjsonstr = json.dumps(actions)
+        
+        return {
+            'isActive': self.isActive,
+            'actions': actjsonstr,
+        }
         
         
-
-
-
-
-
-
     def draw(self, context, layout, panel):
         layout.prop(data=self, property="isActive")
-        layout.prop(data=self, property="actionType")
+        layout.prop(data=self, property="action")
 
-        # layout.prop(data=self, property="variableName")
-        # layout.prop(data=self, property="variableType")
-        # layout.prop(data=self, property="variableContent")
+        if self.action != "":
+            layout.prop(data=self, property="actionString")
+        # TODO: display action list!
 

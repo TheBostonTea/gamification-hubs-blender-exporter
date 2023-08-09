@@ -1,13 +1,13 @@
 from bpy.props import BoolProperty, EnumProperty, StringProperty
 from ..hubs_component import HubsComponent
-from ..types import Category, NodeType, PanelType, MigrationType
-from ..utils import is_linked
+from ..types import Category, NodeType, PanelType
 from ..game4d_consts import VARIABLE_TYPES
+from ..game4d_utils import game4d_gen_variable_dict
 import json
 
 # id = 0; 
 
-class Game4dObjectComponent(HubsComponent):
+class Game4dObject(HubsComponent):
     _definition = {
         'name': 'game4d-object',
         'display_name': "Game4d Object",
@@ -78,8 +78,8 @@ class Game4dObjectComponent(HubsComponent):
 
     def gather(self, export_settings, object):
 
-        # Todo: Gather all the variables into dictionaries!
-        variables = [{"name" : self.variableName, "type": self.variableType, "content": self.variableContent}]
+        # Todo: Gather multiple variables from a collection!
+        variables = [game4d_gen_variable_dict(self.variableName, self.variableType, self.variableContent)]
 
         varjsonstr = ""
 
