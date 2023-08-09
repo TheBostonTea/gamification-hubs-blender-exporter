@@ -20,6 +20,7 @@ class OnClickComponent(HubsComponent):
         default=True
     )
 
+    # TODO: Multiple actions!
     actionType: EnumProperty(
         name="Action Type",
         description="What Action will be triggered when this object is clicked?",
@@ -27,35 +28,33 @@ class OnClickComponent(HubsComponent):
         default="console"
     )
 
+    # 
     # This is ugly: We'd want to pool different variables, within the context of this property, and let these populate the list!
-    # TODO: Pool variables based on availibility!
-    # TODO: For prints and other applications, bind variables to actions!
-    # TODO: For actions: Allow multiple actions for one thing
-    # TODO: Conditional: add Conditional nodes
-    useInternal: BoolProperty(
-        name="Use Internal Variable",
-        description="Use the Game4d Object internal variable",
-        default = True
-    )
+    # UPDATE: Variables inside interactions are deprecated. All variables are stored in the object!
+    # useInternal: BoolProperty(
+    #     name="Use Internal Variable",
+    #     description="Use the Game4d Object internal variable",
+    #     default = True
+    # )
 
-    variableName: StringProperty(
-        name="Var Name",
-        description="How the internally held variable will be named to be accessible by the game system",
-        default=""
-    )
+    # variableName: StringProperty(
+    #     name="Var Name",
+    #     description="How the internally held variable will be named to be accessible by the game system",
+    #     default=""
+    # )
 
-    variableType: EnumProperty(
-        name="Var Type",
-        description="How the internally held variable will be interpreted by the game system",
-        items=VARIABLE_TYPES,
-        default="string"
-    )
+    # variableType: EnumProperty(
+    #     name="Var Type",
+    #     description="How the internally held variable will be interpreted by the game system",
+    #     items=VARIABLE_TYPES,
+    #     default="string"
+    # )
 
-    variableContent: StringProperty(
-        name="Var Content",
-        description="What the internally held variable will be for this object",
-        default=""
-    )
+    # variableContent: StringProperty(
+    #     name="Var Content",
+    #     description="What the internally held variable will be for this object",
+    #     default=""
+    # )
 
     # def gather(self, export_settings, object):
     #     if self.useInternal:
@@ -83,11 +82,8 @@ class OnClickComponent(HubsComponent):
     def draw(self, context, layout, panel):
         layout.prop(data=self, property="isActive")
         layout.prop(data=self, property="actionType")
-        layout.prop(data=self, property="useInternal")
-        if self.useInternal:
-            return
 
-        layout.prop(data=self, property="variableName")
-        layout.prop(data=self, property="variableType")
-        layout.prop(data=self, property="variableContent")
+        # layout.prop(data=self, property="variableName")
+        # layout.prop(data=self, property="variableType")
+        # layout.prop(data=self, property="variableContent")
 

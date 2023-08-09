@@ -1,18 +1,18 @@
 VARIABLE_TYPES = [(
+                      "int", "Integer",
+                      "Variable will be interpreted as an integer, or a whole number"
+                  ), 
+                  (
+                      "float", "Float",
+                      "Variable will be interpreted as a floating point number"   
+                  ),
+                  (
                       "string", "String",
                       "Variable will be interpreted as a string of characters"
                   ),
                   (
-                      "uint", "Unsigned Integer",
-                      "Variable will be interpreted as an unsigned integer, meaning only positive integers"
-                  ), 
-                  (
-                      "sint", "Signed Integer",
-                      "Variable will be interpreted as a signed integer, supporting negative integers"
-                  ),
-                  (
-                      "float", "Float",
-                      "Variable will be interpreted as a floating point number"   
+                      "boolean", "Boolean",
+                      "Variable will be interpreted as a Boolean, expecting \"True\" and \"False\""
                   )]
 
 ACTION_TYPES =    [(
